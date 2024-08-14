@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wikipedia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+
+<body>
+
+
+    <nav class="bg-white border-gray-200 dark:bg-gray-900">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <a href="" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/de/Wikipedia_Logo_1.0.png" class="h-8" alt="Flowbite Logo" />
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Wikipedia</span>
+            </a>
+            <div class="flex md:order-2">
+                <button type="button" data-collapse-toggle="navbar-search" aria-controls="navbar-search"
+                    aria-expanded="false"
+                    class="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 me-1">
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    </svg>
+                    <span class="sr-only">Search</span>
+                </button>
+                <div class="relative hidden md:block">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                        </svg>
+                        <span class="sr-only">Search icon</span>
+                    </div>
+                    <input type="text" id="search-navbar"
+                        class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Search...">
+                </div>
+                <button data-collapse-toggle="navbar-search" type="button"
+                    class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                    aria-controls="navbar-search" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 17 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M1 1h15M1 7h15M1 13h15" />
+                    </svg>
+                </button>
+            </div>
+            <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-search">
+                <div class="relative mt-3 md:hidden">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                        </svg>
+                    </div>
+                    <input type="text" id="search-navbar"
+                        class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Search...">
+                </div>
+                <ul
+                    class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                    <li>
+                        <a href="#"
+                            class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
+                            aria-current="page">Home</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Services</a>
+                    </li>
+                </ul>
+                
+                
+            </div>
+            
+        </div>
+        
+    </nav>
+    <main>
+        <!-- component -->
+        <div class="font-sans bg-gray-100 flex items-center justify-center h-screen">
+            <div x-data="{ showPrivacyPolicy: true }">
+                <!-- Button to open the privacy policy modal -->
+                <button @click="showPrivacyPolicy = true"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"> View Privacy Policy
+                </button>
+                <!-- Privacy Policy Modal -->
+                <div id="privacyPolicyModal" x-show="showPrivacyPolicy"
+        class="fixed z-10 inset-0 flex items-center justify-center">
+        <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+        <div class="relative bg-white rounded-lg overflow-hidden shadow-xl max-w-screen-md w-full m-4"
+            x-transition:enter="transition ease-out duration-300 transform opacity-0 scale-95"
+            x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-200 transform opacity-100 scale-100"
+            x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+            x-cloak>
+            <button x-on:click="showPrivacyPolicy = false" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            
+            
+                        <!-- Modal panel -->
+                        
+                        <div class="px-6 py-4">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900"> Appreciations And Accesibilty </h3>
+                        </div>
+                        <div class="prose max-w-screen-md p-6 overflow-y-auto"
+                            style="max-height: 70vh; background-color: #fff; border: 1px solid #e2e8f0; border-radius: 0.375rem; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);">
+                            <h2 class="text-xl font-bold mb-2">Text size: </h2>
+        <div class="flex flex-row">
+             
+            <!-- Div for Option 1 -->
+            <div class="flex items-center mr-4">
+                <input type="radio" name="{{ form1.selected_option.name }}" value="option1"
+                    {% if form1.selected_option.value == 'option1' %} checked{% endif %}>
+                <label for="option1" class='text-[16px] font-bold ml-2 p-[4px] border-gray-600 border-4'>
+                    Small
+                </label>
+            </div>
+        
+            <!-- Div for Option 2 -->
+            <div class="flex items-center mr-4">
+                <input type="radio" name="{{ form1.selected_option.name }}" value="option2"
+                    {% if form1.selected_option.value == 'option2' %} checked{% endif %}>
+                <label for="option2" class="text-[18px] font-bold ml-2 p-[4px] border-gray-600 border-4">
+                    Default
+                </label>
+            </div>
+        
+            <!-- Div for Option 3 -->
+            <div class="flex items-center   ">
+                <input type="radio" name="{{ form1.selected_option.name }}" value="option3"
+                    {% if form1.selected_option.value == 'option3' %} checked{% endif %}>
+                <label for="option3" class="text-[25px] font-bold ml-2 p-[4px] border-gray-600 border-4">
+                    Large
+                </label>
+            </div>
+        </div>
+
+                             {% comment %} Color And Contrast :  {% endcomment %}
+        <h2 class="text-xl font-bold mb-2">Color And Contrast : </h2>
+        <div class="flex flex-row mt-4">
+            
+            <!-- Div for Option 1 -->
+            <div class="flex items-center mr-4">
+                <input type="radio" name="{{ form2.selected_option.name }}" value="option1"
+                    {% if form2.selected_option.value == 'option1' %} checked{% endif %}>
+                    <label for="option1"
+                                    class="text-m border-gray-700 text-gray-900 font-bold dark:text-gray-900 border-4 p-[4px] w-[200px]">High
+                                    Contrast (Classic)</label>
+            </div>
+        
+            <!-- Div for Option 2 -->
+            <div class="flex items-center mr-4">
+                <input type="radio" name="{{ form2.selected_option.name }}" value="option2"
+                    {% if form2.selected_option.value == 'option2' %} checked{% endif %}>
+                    <label for="default-radio-2"
+                    class="text-m border-gray-700 text-gray-500 font-bold dark:text-gray-500 border-4 p-[4px] ">desian
+                    tweaks (modern)</label>
+            </div>
+        
+            <!-- Div for Option 3 -->
+            <div class="flex items-center   ">
+                <input type="radio" name="{{ form2.selected_option.name }}" value="option3"
+                    {% if form2.selected_option.value == 'option3' %} checked{% endif %}>
+                    <label for="default-radio-2"
+                    class="text-m bg-black text-white font-bold dark:text-white  p-3">Reverse</label> 
+            </div>
+        </div>
+                            {% comment %} Line Spacing {% endcomment %}
+        <h2 class="text-xl font-bold mb-2">Line Spacing : </h2>
+        <div class="flex flex-row mt-4">
+            <!-- Div for Option 1 -->
+            <div class="flex items-center mr-4">
+                <input type="radio" name="{{ form3.selected_option.name }}" value="option1"
+                    {% if form3.selected_option.value == 'option1' %} checked{% endif %}>
+                    <label for="default-radio-1"
+                    class="text-m line-3 border-gray-700 text-gray-900 font-bold dark:text-gray-900 border-4 p-[4px] w-[50px]">
+                    One Two
+                </label>
+            </div>
+        
+            <!-- Div for Option 2 -->
+            <div class="flex items-center mr-4">
+                <input type="radio" name="{{ form3.selected_option.name }}" value="option2"
+                    {% if form3.selected_option.value == 'option2' %} checked{% endif %}>
+                    <label for="default-radio-2"
+                    class="text-m line-6 border-gray-700 text-gray-900 font-bold dark:text-gray-900 border-4 p-[4px] w-[60px]">
+                    One Two Three
+                </label>
+            </div>
+        
+            <!-- Div for Option 3 -->
+            <div class="flex items-center   ">
+                <input type="radio" name="{{ form3.selected_option.name }}" value="option3"
+                    {% if form3.selected_option.value == 'option3' %} checked{% endif %}>
+                    <label for="default-radio-2"
+                    class="text-m line-6 border-gray-700 text-gray-900 font-bold dark:text-gray-900 border-4 p-[4px] w-[60px]">
+                    One Two Three
+                </label>
+            </div>
+        </div>
+                            {% comment %} Page width {% endcomment %}
+        <h2 class="text-xl font-bold mt-6 mb-2">Page width :-</h2>
+        <div class="flex flex-col mt-4">
+            <!-- Div for Option 1 -->
+            <div class="flex  mr-4">
+                
+                <input type="radio" name="{{ form4.selected_option.name }}" value="option1"
+                    {% if form3.selected_option.value == 'option1' %} checked{% endif %}>
+                    <div class="w-[80%] m-auto border-4 border-gray-700 p-3">Lorem ipsum dolor sit, <br> amet consectetur adipisicing elit. Nulla <br>
+                        distinctio porro recusandae repellat, sunt, <br> optio quaerat alias perspiciatis
+                        veritatis quis <br> temporibus amet laboriosam aspernatur iste?</div>
+            </div>
+        
+            <!-- Div for Option 2 -->
+            <div class="flex mt-4  ">
+                
+                <input type="radio" name="{{ form4.selected_option.name }}" value="option2"
+                    {% if form3.selected_option.value == 'option2' %} checked{% endif %}>
+                    <div class="w-[80%] m-auto border-4 border-gray-700 p-3">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla 
+                        distinctio porro recusandae repellat, sunt, optio quaerat alias perspiciatis
+                        veritatis quis temporibus amet laboriosam aspernatur iste?</div>
+                </div>
+            </div>
+        
+            <!-- Div for Option 3 -->
+           
+
+        
+
+
+                        </div>
+                        <div class="bg-gray-50 px-4 py-3 sm:px-6 flex align-items justify-end p-4 gap-4 flex-row">
+                            <button @click="showPrivacyPolicy = false" type="button"
+                                class="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-black text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400  sm:w-auto sm:text-sm">
+                                Accept </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+</body>
+<script>
+    $(document).ready(function () {
+        $("#viewPrivacyPolicyBtn").click(function () {
+            $("#privacyPolicyModal").show();
+        });
+    
+        $("#closePrivacyPolicyBtn").click(function () {
+          console.log('Close button is been clicked');
+            $("#privacyPolicyModal").hide();
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        const textContainer = document.querySelector('.textContainer'); // Use querySelector with the correct class selector
+        const speakButton = document.getElementById('speakButton');
+    
+        speakButton.addEventListener('click', function() {
+            const textToSpeak = textContainer.textContent;
+            speak(textToSpeak);
+        });
+    
+        function speak(text) {
+            const utterance = new SpeechSynthesisUtterance(text);
+    
+            // Attempt to select a female voice for Telugu
+            const voices = speechSynthesis.getVoices();
+            const femaleVoice = voices.find(voice => voice.lang.includes('te') && voice.gender === 'female');
+    
+            // Set the voice
+            if (femaleVoice) {
+                utterance.voice = femaleVoice;
+            }
+    
+            // Speak the text
+            speechSynthesis.speak(utterance);
+    
+            window.addEventListener("load", function () {
+                setTimeout(function () {
+                    openPopup();
+                }, 1000);
+            });
+</script>
+
+</html>

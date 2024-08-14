@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wikipedia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #privacyPolicyModal {
+            display: none; /* Hide the modal initially */
+            position: fixed;
+            z-index: 10;
+            inset: 0;
+            flex: items-center;
+            justify: center;
+        }
+        .textContainer {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .textContainer h2 {
+            color: #333;
+        }
+
+        .textContainer p {
+            line-height: 1.6;
+            color: #555;
+        }
+        .popup {
+            background-color: #ffffff;
+            width: 450px;
+            padding: 30px 40px;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            left: 50%;
+            top: 50%;
+            border-radius: 8px;
+            font-family: "Poppins", sans-serif;
+            display: none; 
+        }
+
+        .popup button {
+            display: block;
+            margin: 0 0 20px auto;
+            background-color: transparent;
+            font-size: 30px;
+            color: #c5c5c5;
+            border: none;
+            outline: none;
+            cursor: pointer; 
+        }
+
+        popup a {
+            display: block;
+            width: 150px;
+            position: relative;
+            margin: auto;
+            text-align: center;
+            background-color: #0f72e5;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 5px 0;
+        }
+        body {
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  justify-content: center;
+  background-image: url("https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80");
+  background-size: cover;
+  text-align: center;
+  transition: filter 0.7s;
+}
+
+h1 {
+  color: white;
+  font-size: 60px;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.btn {
+  padding: 10px 20px;
+  width: 200px;
+  cursor: pointer;
+  background-color: gold;
+  border: none;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+.btn:hover {
+  filter: brightness(0.7);
+}
+
+.active.container {
+  filter: blur(5px) brightness(0.7);
+}
+
+.popup-container {
+    /* Remove display: none; */
+    position: fixed;
+    width: 400px;
+    height: 200px;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%);
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background: url("https://images.unsplash.com/photo-1564069114553-7215e1ff1890?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80");
+    background-size: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    opacity: 1;
+    transition: all 0.7s;
+}
+
+h4 {
+  font-size: 30px;
+  margin: 10px 0;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+label {
+  color: white;
+}
+
+.popup-btn {
+  background-color: burlywood;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  border: 1px solid;
+}
+
+.input {
+  border: 1px solid;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 20px;
+  text-align: center;
+}
+
+.input::placeholder {
+  color: burlywood;
+}
+
+.close-icon {
+  position: absolute;
+  right: 20px;
+  cursor: pointer;
+}
+
+.close-icon:hover {
+  color: brown;
+}
+
+.active.popup-container {
+  visibility: hidden;
+  opacity: 0;
+  top: 10%;
+  /* This creates the effect of the popup sliding up and disappearing from the screen. */
+}
+
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+<body>
+
+
+    <nav class="bg-white border-gray-200 dark:bg-gray-900">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <a href="" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/de/Wikipedia_Logo_1.0.png" class="h-8" alt="Flowbite Logo" />
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Wikipedia</span>
+            </a>
+            <div class="flex md:order-2">
+                <button type="button" data-collapse-toggle="navbar-search" aria-controls="navbar-search"
+                    aria-expanded="false"
+                    class="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 me-1">
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    </svg>
+                    <span class="sr-only">Search</span>
+                </button>
+                <div class="relative hidden md:block">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                        </svg>
+                        <span class="sr-only">Search icon</span>
+                    </div>
+                    <input type="text" id="search-navbar"
+                        class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Search...">
+                </div>
+                <button data-collapse-toggle="navbar-search" type="button"
+                    class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                    aria-controls="navbar-search" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 17 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M1 1h15M1 7h15M1 13h15" />
+                    </svg>
+                </button>
+            </div>
+            <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-search">
+                <div class="relative mt-3 md:hidden">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                        </svg>
+                    </div>
+                    <input type="text" id="search-navbar"
+                        class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Search...">
+                </div>
+                <ul
+                    class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                    <li>
+                        <a href="#"
+                            class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
+                            aria-current="page">Home</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Services</a>
+                    </li>
+                    <li>
+                        <svg id="viewPrivacyPolicyBtn" style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 50 50" style="color:white;">
+                            <path fill="white" d="M 22.199219 2 A 1.0001 1.0001 0 0 0 21.214844 2.8339844 L 20.205078 8.796875 C 19.01608 9.1476749 17.903339 9.6072866 16.835938 10.173828 L 11.875 6.6816406 A 1.0001 1.0001 0 0 0 10.59375 6.7929688 L 6.6933594 10.693359 A 1.0001 1.0001 0 0 0 6.5820312 11.974609 L 10.076172 16.939453 C 9.5032306 17.983292 9.0447681 19.109183 8.6992188 20.298828 L 2.8457031 21.212891 A 1.0001 1.0001 0 0 0 2 22.199219 L 2 27.699219 A 1.0001 1.0001 0 0 0 2.8339844 28.685547 L 8.7949219 29.693359 C 9.1451119 30.880887 9.6045402 31.990547 10.169922 33.056641 L 6.6875 37.917969 A 1.0001 1.0001 0 0 0 6.7929688 39.207031 L 10.693359 43.107422 A 1.0001 1.0001 0 0 0 11.974609 43.21875 L 16.939453 39.724609 C 17.985462 40.298683 19.114316 40.757752 20.306641 41.103516 L 21.314453 47.066406 A 1.0001 1.0001 0 0 0 22.300781 47.900391 L 27.800781 47.900391 A 1.0001 1.0001 0 0 0 28.783203 47.082031 L 29.884766 41.107422 C 31.077734 40.756262 32.193186 40.294742 33.263672 39.726562 L 38.224609 43.21875 A 1.0001 1.0001 0 0 0 39.507812 43.107422 L 43.40625 39.207031 A 1.0001 1.0001 0 0 0 43.509766 37.914062 L 39.931641 32.957031 C 40.500209 31.91951 40.957756 30.82106 41.300781 29.693359 L 47.169922 28.685547 A 1.0001 1.0001 0 0 0 48 27.699219 L 48 22.199219 A 1.0001 1.0001 0 0 0 47.166016 21.214844 L 41.199219 20.203125 C 40.855563 19.074235 40.397841 17.973827 39.828125 16.935547 L 43.318359 11.974609 A 1.0001 1.0001 0 0 0 43.207031 10.693359 L 39.306641 6.7929688 A 1.0001 1.0001 0 0 0 38.013672 6.6894531 L 33.052734 10.273438 C 32.009656 9.7017023 30.885686 9.2413677 29.697266 8.8964844 L 28.685547 2.8359375 A 1.0001 1.0001 0 0 0 27.699219 2 L 22.199219 2 z M 23.044922 4 L 26.853516 4 L 27.814453 9.7636719 A 1.0001 1.0001 0 0 0 28.556641 10.570312 C 30.07104 10.948913 31.478126 11.514935 32.675781 12.251953 A 1.0001 1.0001 0 0 0 33.785156 12.210938 L 38.494141 8.8085938 L 41.197266 11.511719 L 37.882812 16.224609 A 1.0001 1.0001 0 0 0 37.847656 17.324219 C 38.584675 18.521874 39.154586 19.937607 39.533203 21.357422 A 1.0001 1.0001 0 0 0 40.333984 22.085938 L 46 23.044922 L 46 26.857422 L 40.429688 27.814453 A 1.0001 1.0001 0 0 0 39.632812 28.542969 C 39.254196 29.962783 38.686237 31.378517 37.949219 32.576172 A 1.0001 1.0001 0 0 0 37.990234 33.685547 L 41.390625 38.394531 L 38.6875 41.097656 L 33.974609 37.78125 A 1.0001 1.0001 0 0 0 32.904297 37.732422 C 31.566632 38.496802 30.2627 39.053466 28.757812 39.429688 A 1.0001 1.0001 0 0 0 28.017578 40.21875 L 26.966797 45.900391 L 23.144531 45.900391 L 22.185547 40.232422 A 1.0001 1.0001 0 0 0 21.443359 39.429688 C 19.92896 39.051088 18.521874 38.485065 17.324219 37.748047 A 1.0001 1.0001 0 0 0 16.224609 37.78125 L 11.511719 41.097656 L 8.8066406 38.392578 L 12.113281 33.783203 A 1.0001 1.0001 0 0 0 12.167969 32.703125 C 11.403582 31.365465 10.846925 30.061529 10.470703 28.556641 A 1.0001 1.0001 0 0 0 9.6660156 27.814453 L 4 26.855469 L 4 23.056641 L 9.5546875 22.1875 A 1.0001 1.0001 0 0 0 10.371094 21.443359 C 10.749694 19.92896 11.313763 18.521874 12.050781 17.324219 A 1.0001 1.0001 0 0 0 12.017578 16.224609 L 8.7011719 11.511719 L 11.412109 8.8027344 L 16.125 12.117188 A 1.0001 1.0001 0 0 0 17.195312 12.167969 C 18.532978 11.403589 19.836909 10.846925 21.341797 10.470703 A 1.0001 1.0001 0 0 0 22.085938 9.6660156 L 23.044922 4 z M 25 17 C 20.570085 17 17 20.570085 17 25 C 17 29.429915 20.570085 33 25 33 C 29.429915 33 33 29.429915 33 25 C 33 20.570085 29.429915 17 25 17 z M 25 19 C 28.370085 19 31 21.629915 31 25 C 31 28.370085 28.370085 31 25 31 C 21.629915 31 19 28.370085 19 25 C 19 21.629915 21.629915 19 25 19 z"></path>
+                            </svg>
+                        </li>
+                    
+                </ul>
+                
+              
+                
+            </div>
+            
+        </div>
+        
+        
+    </nav>
+    <main>
+      
+       
+            
+        <div class="popup-container active">
+            <h4>20% DISCOUNT</h4>
+            <label for="email">Your Email</label>
+            <input
+              type="email"
+              name="email"
+              class="input"
+              placeholder="Enter your email"
+            />
+            <button class="popup-btn">Join</button>
+            <div class="close-icon">
+              <i class="fa-solid fa-circle-xmark fa-2x"></i>
+            </div>
+          </div>
+
+
+        <div id="privacyPolicyModal" class="fixed z-10 inset-0 flex items-center justify-center m-auto w-[100%]" style="display: none;">
+            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            <div class="relative bg-white rounded-lg overflow-hidden shadow-xl max-w-screen-md w-full m-4">
+                <button id="closePrivacyPolicyBtn" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            
+            
+                        <!-- Modal panel -->
+                        
+                        <div class="px-6 py-4">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900"> Appreciations And Accesibilty </h3>
+                        </div>
+                        <div class="prose max-w-screen-md p-6 overflow-y-auto"
+                            style="max-height: 70vh; background-color: #fff; border: 1px solid #e2e8f0; border-radius: 0.375rem; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);">
+                            <h2 class="text-xl font-bold mb-2">Text size: </h2>
+        <div class="flex flex-row">
+             
+            <!-- Div for Option 1 -->
+            <div class="flex items-center mr-4">
+                <input type="radio" name="{{ form1.selected_option.name }}" value="option1"
+                    {% if form1.selected_option.value == 'option1' %} checked{% endif %}>
+                <label for="option1" class='text-[16px] font-bold ml-2 p-[4px] border-gray-600 border-4'>
+                    Small
+                </label>
+            </div>
+        
+            <!-- Div for Option 2 -->
+            <div class="flex items-center mr-4">
+                <input type="radio" name="{{ form1.selected_option.name }}" value="option2"
+                    {% if form1.selected_option.value == 'option2' %} checked{% endif %}>
+                <label for="option2" class="text-[18px] font-bold ml-2 p-[4px] border-gray-600 border-4">
+                    Default
+                </label>
+            </div>
+        
+            <!-- Div for Option 3 -->
+            <div class="flex items-center   ">
+                <input type="radio" name="{{ form1.selected_option.name }}" value="option3"
+                    {% if form1.selected_option.value == 'option3' %} checked{% endif %}>
+                <label for="option3" class="text-[25px] font-bold ml-2 p-[4px] border-gray-600 border-4">
+                    Large
+                </label>
+            </div>
+        </div>
+
+                             {% comment %} Color And Contrast :  {% endcomment %}
+        <h2 class="text-xl font-bold mb-2">Color And Contrast : </h2>
+        <div class="flex flex-row mt-4">
+            
+            <!-- Div for Option 1 -->
+            <div class="flex items-center mr-4">
+                <input type="radio" name="{{ form2.selected_option.name }}" value="option1"
+                    {% if form2.selected_option.value == 'option1' %} checked{% endif %}>
+                    <label for="option1"
+                                    class="text-m border-gray-700 text-gray-900 font-bold dark:text-gray-900 border-4 p-[4px] w-[200px]">High
+                                    Contrast (Classic)</label>
+            </div>
+        
+            <!-- Div for Option 2 -->
+            <div class="flex items-center mr-4">
+                <input type="radio" name="{{ form2.selected_option.name }}" value="option2"
+                    {% if form2.selected_option.value == 'option2' %} checked{% endif %}>
+                    <label for="default-radio-2"
+                    class="text-m border-gray-700 text-gray-500 font-bold dark:text-gray-500 border-4 p-[4px] ">desian
+                    tweaks (modern)</label>
+            </div>
+        
+            <!-- Div for Option 3 -->
+            <div class="flex items-center   ">
+                <input type="radio" name="{{ form2.selected_option.name }}" value="option3"
+                    {% if form2.selected_option.value == 'option3' %} checked{% endif %}>
+                    <label for="default-radio-2"
+                    class="text-m bg-black text-white font-bold dark:text-white  p-3">Reverse</label> 
+            </div>
+        </div>
+                            {% comment %} Line Spacing {% endcomment %}
+        <h2 class="text-xl font-bold mb-2">Line Spacing : </h2>
+        <div class="flex flex-row mt-4">
+            <!-- Div for Option 1 -->
+            <div class="flex items-center mr-4">
+                <input type="radio" name="{{ form3.selected_option.name }}" value="option1"
+                    {% if form3.selected_option.value == 'option1' %} checked{% endif %}>
+                    <label for="default-radio-1"
+                    class="text-m line-3 border-gray-700 text-gray-900 font-bold dark:text-gray-900 border-4 p-[4px] w-[50px]">
+                    One Two
+                </label>
+            </div>
+        
+            <!-- Div for Option 2 -->
+            <div class="flex items-center mr-4">
+                <input type="radio" name="{{ form3.selected_option.name }}" value="option2"
+                    {% if form3.selected_option.value == 'option2' %} checked{% endif %}>
+                    <label for="default-radio-2"
+                    class="text-m line-6 border-gray-700 text-gray-900 font-bold dark:text-gray-900 border-4 p-[4px] w-[60px]">
+                    One Two Three
+                </label>
+            </div>
+        
+            <!-- Div for Option 3 -->
+            <div class="flex items-center   ">
+                <input type="radio" name="{{ form3.selected_option.name }}" value="option3"
+                    {% if form3.selected_option.value == 'option3' %} checked{% endif %}>
+                    <label for="default-radio-2"
+                    class="text-m line-6 border-gray-700 text-gray-900 font-bold dark:text-gray-900 border-4 p-[4px] w-[60px]">
+                    One Two Three
+                </label>
+            </div>
+        </div>
+                            {% comment %} Page width {% endcomment %}
+        <h2 class="text-xl font-bold mt-6 mb-2">Page width :-</h2>
+        <div class="flex flex-col mt-4">
+            <!-- Div for Option 1 -->
+            <div class="flex  mr-4">
+                
+                <input type="radio" name="{{ form4.selected_option.name }}" value="option1"
+                    {% if form3.selected_option.value == 'option1' %} checked{% endif %}>
+                    <div class="w-[80%] m-auto border-4 border-gray-700 p-3">Lorem ipsum dolor sit, <br> amet consectetur adipisicing elit. Nulla <br>
+                        distinctio porro recusandae repellat, sunt, <br> optio quaerat alias perspiciatis
+                        veritatis quis <br> temporibus amet laboriosam aspernatur iste?</div>
+            </div>
+        
+            <!-- Div for Option 2 -->
+            <div class="flex mt-4  ">
+                
+                <input type="radio" name="{{ form4.selected_option.name }}" value="option2"
+                    {% if form3.selected_option.value == 'option2' %} checked{% endif %}>
+                    <div class="w-[80%] m-auto border-4 border-gray-700 p-3">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla 
+                        distinctio porro recusandae repellat, sunt, optio quaerat alias perspiciatis
+                        veritatis quis temporibus amet laboriosam aspernatur iste?</div>
+                </div>
+            </div>
+        
+            <!-- Div for Option 3 -->
+           
+
+        
+
+
+                        </div>
+                        <div class="bg-gray-50 px-4 py-3 sm:px-6 flex align-items justify-end p-4 gap-4 flex-row">
+                            <button @click="showPrivacyPolicy = false" type="button"
+                                class="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-black text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400  sm:w-auto sm:text-sm">
+                                Accept </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <div class="textContainer">
+     <h2>Exploring the Wonders of Nature</h2>
+    <p>Nature has always been a source of inspiration and awe for humanity. The vast landscapes, diverse ecosystems, and intricate patterns found in the natural world continue to captivate our minds and hearts. In this post, we embark on a journey to explore some of the wonders that Mother Earth has to offer.</p>
+
+    <p>From the breathtaking beauty of serene mountain ranges to the vibrant colors of tropical rainforests, nature presents us with a canvas of wonders. The delicate balance of flora and fauna, the dance of sunlight through leaves, and the soothing sounds of flowing water create an immersive experience that nourishes the soul.</p>
+
+    <p>Our exploration will take us through lush valleys, along winding rivers, and to the summits of majestic peaks. We'll encounter diverse wildlife, each species playing a unique role in the intricate web of life. Whether it's the majestic flight of eagles or the graceful movements of underwater creatures, nature's beauty is boundless.</p>
+
+    <p>Join us as we delve into the stories of resilience and adaptation that unfold in the natural world. From the microscopic wonders of a single flower's bloom to the grandeur of expansive deserts, every corner of our planet has a tale to tell. As stewards of this Earth, it is our responsibility to appreciate, preserve, and cherish these wonders for generations to come.</p>
+    <button id="speakButton" class="bg-blue-700 text-white p-2 rounded-md">Speak Text</button>
+</div>
+</div>
+
+
+    </main>
+
+
+</body>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElement"></script>
+<script>
+  $(document).ready(function () {
+    $("#viewPrivacyPolicyBtn").click(function () {
+        $("#privacyPolicyModal").show();
+    });
+
+    $("#closePrivacyPolicyBtn").click(function () {
+      console.log('Close button is been clicked');
+        $("#privacyPolicyModal").hide();
+    });
+});
+document.addEventListener('DOMContentLoaded', function() {
+      const textContainer = document.querySelector('.textContainer');
+      const speakButton = document.getElementById('speakButton');
+
+      speakButton.addEventListener('click', function() {
+        const textToSpeak = textContainer.textContent;
+        speak(textToSpeak);
+      });
+
+      function speak(text) {
+        const utterance = new SpeechSynthesisUtterance(text);
+
+        // Attempt to select a female voice for Telugu
+        const voices = speechSynthesis.getVoices();
+        const femaleVoice = voices.find(voice => voice.lang.includes('te') && voice.gender === 'female');
+
+        // Set the voice
+        if (femaleVoice) {
+          utterance.voice = femaleVoice;
+        }
+
+        // Speak the text
+        speechSynthesis.speak(utterance);
+      }
+    });
+
+    // Open Popup Function
+    function openPopup() {
+        document.getElementById("popupOverlay").style.display = "flex";
+    }
+
+    // Close Popup Function
+    function closePopup() {
+        document.getElementById("popupOverlay").style.display = "none";
+    }
+
+    // Initialize Google Translate Element
+    function googleTranslateElement() {
+        new google.translate.TranslateElement(
+            { pageLanguage: 'en' },
+            'google_translate_element'
+        );
+    }
+
+    // Open Popup on 
+
+   const popupContainerEl = document.querySelector(".popup-container");
+const containerEl = document.querySelector(".container");
+const closeIconEl = document.querySelector(".close-icon");
+
+window.onload = function() {
+  containerEl.classList.add("active");
+  popupContainerEl.classList.remove("active");
+};
+
+closeIconEl.addEventListener("click", () => {
+  popupContainerEl.classList.add("active");
+  containerEl.classList.remove("active");
+});
+
+
+
+       
+
+</script>
+
+</html>
